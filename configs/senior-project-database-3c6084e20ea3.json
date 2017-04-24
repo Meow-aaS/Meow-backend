@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "senior-project-database",
+  "private_key_id": "3c6084e20ea3f69e915e612eca8e9618410c871b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC5AScmV6uNz8KH\n/QDTe6mfx+HVYOOWDbAIEl6aKKN2sUpVO5REKC3v9ZaVPj489A/YLYitIXNjTMiF\nXExGS3FeORDgBkE904YYWbvSuWqzOMc5HQF426NgVXLY8EVtXjx8EZNZS0s2KjUZ\nBm/KjO0TmO9OQdec5qAoYRaXt6xdktbjk8xkliX7h52irONMD8NCIVa5x+pROb4F\nH3mDD3WyXELNHZ+9SrAX0teR3UwdUgnfBHPIag+pOYGC66Yth7X4ar+or1Emodpk\nYXuCCrLOYEeYmp2lMPLwBj9wO83yrYVJX+iKKW+3GaDUohazNmo61meSij5lHLyx\ne6ya0GvzAgMBAAECggEAGK+vsq0WJjkn4w9+kbm5m6mHV/qyw64V5C3XU8jCby8f\nFRp7IVEfOBrUOhvxIB8NEjKZP0jsZb60Lx9uyh59BS6mMs6C3CYiiZNHvcmiFEIq\nS1O0g5UDSvJ7/bip+vsNJR0PRWYHpjWhmjJCrot5gxjwLcgZZkVb76ds5VfL9zxL\ntBGvY0jyISwuvU/TEoy2fROF+5q5nlKCVVBr/Qd4SJRoDKLCS+EekFX3ZUywI5mr\nbdfI7wi/FYsmTPzqoPU2hItf01h6GouFLjZ4evN8g/gxg4Ane6cPlY4XgoSSzKPE\nNC/L3r89NNcn3mL0nd3nNaFjYincXKd1P8hV9GgKKQKBgQDhwCDsKCDGClxo3z7J\niMz/Qa/6OPJtHTJCE9Fd1k42V29W75LKd/d1Mg5Yw6hP9KZ+iABf/1xMJc8AZ/Fj\nj6Tw/ynnL9crIg/No5JCzDdZMM7U3A5Rl4izXbgHitBXgLy2HgNBa67Z7eNkFquj\n7om+hd7vULYyA+nKSloaoqmrDQKBgQDRy1KwyLqnZWf7Mk2Q7Pt7jhlGR9ik5bBJ\nkUPD/IND+p+esr/hG6f+hX/inyHTuSRqTdFSq8KOQXSFQhxCJuvjkmrXv5cluXb6\nwe6csoxCatDXXBmwu1o5/c8Ff3xYK27AAcOE/8Rxxtv+k+a6aBhldpiIwF9CbvaH\nSGBezmCy/wKBgQDA0sTMMjJcNflcsmME7U58MPVI+19GiAunmRnZ1vUTQXeegB+X\nxQSfG9RZSTX4pXWY2j3HwWxqtlirdh0e91DhcHGwQJK/CucItNB3McuM6T2hXxzz\n4EUpP8Gy34S5WQLXY6dQN9Qv3Ru/IAYXjeYl0F7tdrlI20LUQNHZslrN+QKBgQDN\nNc3vwJjbbtS0IHNA5J3lMIzGczaVrVqvy1j21wPrNbZ2vC/2WGAOFbWPDcs/12So\nWu/6pqnLDnmUc6NCjeHFG45I9U46h1y7UYE+Y2PQ/7zCO4OhnNFX0k1y+k29zNYr\nGE6QxMH57ON59GAHTBU5AjWX5lwHlpSspX4mnkZ2LwKBgQC2usI+Pb3F6OJBe5cM\nKBjC180LVNO5hnohaEYiVn1jn5PCSFbeWp4P4VPf6A68LE3K3pcTOp8Xln3R0kAA\n0b+pX/n3vUWUrZLY8ZOW8fSpvT8OHhz/2YrT5ybnH2Wz8bhRH/+JUjl+x2vmkdaB\n87xyjEg0Pd4/GR7qehHheVd2Gw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "datastore-account@senior-project-database.iam.gserviceaccount.com",
+  "client_id": "112693318447529878949",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/datastore-account%40senior-project-database.iam.gserviceaccount.com"
+}
