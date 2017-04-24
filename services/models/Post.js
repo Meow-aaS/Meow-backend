@@ -83,7 +83,7 @@ exports.list = function(page){
     console.log("page...", page);
 
     var query = datastore.createQuery('Post').filter("updated_at", "<", Number(page))
-    .limit(1)
+    .limit(5)
     .order("updated_at", {
         descending: true
     });
