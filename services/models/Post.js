@@ -4,6 +4,11 @@ const datastore = require('@google-cloud/datastore')({
   keyFilename: path.join(__dirname, '../../configs/senior-project-database-3c6084e20ea3.json')
 });
 const Promise = require("bluebird");
+const crypto = require("crypto");
+
+var getUID = function(){
+    return crypto.randomBytes(16).toString("hex");
+}
 
 exports.create = function(params){
     console.log("Create Post..");
@@ -21,6 +26,10 @@ exports.create = function(params){
     let entity = {
         key: postKey,
         data: [
+            {
+                name: "_id",
+                value: getUID()
+            },
             {
                 name: "caption",
                 value: caption,
@@ -72,7 +81,7 @@ exports.create = function(params){
             
         })
         .catch((err) => {
-            console.log("my err");
+            console.log("=== my err ===");
             console.log(err);
         })
     })
@@ -92,12 +101,10 @@ exports.list = function(page){
         datastore.runQuery(query)
         .then((results) => {
             var posts = results[0];
-
-            console.log(`List result: ${posts}`);
-            posts.forEach((post) => console.log(post));
             resolve(posts);
         }).catch((err) => {
             console.log(err);
+            reject(err);
         });
     }) 
 }

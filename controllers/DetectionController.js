@@ -16,24 +16,18 @@ exports.list = function(req, res, page){
 }
 
 exports.post = function(req, res){
+    console.log(req.files.image.path);
+    var postParams = {
+        caption: req.body.caption,
+        image_blob: ImageService.convToBlob(req.files.image.path),
+        owner_name: req.body.owner_name
+    }
     pythonArgs = ['--cpu', '--net=zf', '--image=']
     PythonRunner.run("python_scripts/PythonFacade.py", pythonArgs)
     .then((data) => {
         console.log("Print from controller...", data);
-
-        return new Promise((resolve, reject) => {
-            resolve(JSON.parse(data[0]))
-        })
-    })
-    .then((data) => {
-        console.log(">>>", data);
-        return PostService.create({
-            caption: "caption",
-            image_blob: ImageService.convToBlob('test'),
-            bboxes: data, 
-            owner_name: "owner_name"
-        })
-        
+        postParams.bboxes = JSON.parse(data[0]) || [0,0,0,0];
+        return PostService.create(postParams)
     })
     .then((postKey) => {
         console.log(postKey);
