@@ -53,28 +53,23 @@ exports.create = function(params) {
             },
             {
                 name: "caption",
-                value: caption,
-                excludeFromIndexes: true
+                value: caption
             },
             {
                 name: "image_url",
-                value: image_url,
-                excludeFromIndexes: true
+                value: image_url
             },
             {
                 name: "liked_count",
-                value: liked_count,
-                excludeFromIndexes: true
+                value: liked_count
             },
             {
                 name: "comments",
-                value: comments,
-                excludeFromIndexes: true
+                value: comments
             },
             {
                 name: "bboxes",
-                value: bboxes,
-                excludeFromIndexes: true
+                value: bboxes
             },
             {
                 name: "owner_name",
