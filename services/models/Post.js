@@ -33,11 +33,11 @@ var getPost = function(postID) {
 
 exports.create = function(params) {
     console.log("Create Post..");
-
+    console.log("with params", params);
     let postID = getUID();
     let postKey = datastore.key(['Post', postID]);
     let caption = params.caption;
-    let image = params.image_blob;
+    let image_url = params.image_url;
     let liked_count = 0;
     let comments = [];
     let bboxes = params.bboxes;
@@ -56,11 +56,11 @@ exports.create = function(params) {
                 value: caption,
                 excludeFromIndexes: true
             },
-            // {
-            //     name: "image_blob",
-            //     value: image,
-            //     excludeFromIndexes: true
-            // },
+            {
+                name: "image_url",
+                value: image_url,
+                excludeFromIndexes: true
+            },
             {
                 name: "liked_count",
                 value: liked_count,

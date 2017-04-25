@@ -34,7 +34,6 @@ exports.post = function(req, res){
     }
     var postParams = {
         caption: escapeHTML(req.body.caption),
-        image_blob: ImageService.convToBlob(req.files.image.path),
         owner_name: escapeHTML(req.body.owner_name)
     }
     var pythonArgs = ['--cpu', '--net=zf', '--image=']
@@ -45,8 +44,15 @@ exports.post = function(req, res){
             if(!isImage){
                 res.status(400).send("No image");
             } else {
-                resolve("python_scripts/PythonFacade.py", pythonArgs);
+                resolve(req.files.image.path);
             }
+        })
+    })
+    .then(ImageService.upload)
+    .then((image_url) => {
+        return new Promise((resolve, reject) => {
+            postParams.image_url = image_url;
+            resolve("python_scripts/PythonFacade.py", pythonArgs);
         })
     })
     .then(PythonRunner.run)
