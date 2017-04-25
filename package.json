@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "http-server -a 0.0.0.0 -p 3000"
   },
   "dependencies": {
     "@google-cloud/datastore": "^1.0.0",
