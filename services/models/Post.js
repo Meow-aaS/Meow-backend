@@ -97,7 +97,7 @@ exports.create = function(params) {
         datastore.save(entity)
         .then((data) => {
             console.log("saved", data);
-            console.log(`Post ${postKey.id} created successfully.`);
+            console.log(`Post ${postID} created successfully.`);
             resolve(postID)
         })
         .catch((err) => {

@@ -23,23 +23,46 @@ exports.list = function(req, res, page){
 }
 
 exports.post = function(req, res){
+    if(req.body.caption.length > 255){
+        return res.status(400).send("Caption must be less than 255 characters.");
+    }
+    if(req.body.owner_name.length > 255){
+        return res.status(400).send("Name must be less than 255 characters.");
+    }
+    if(!req.files.image){
+        return res.status(400).send("No image.");
+    }
     var postParams = {
         caption: escapeHTML(req.body.caption),
         image_blob: ImageService.convToBlob(req.files.image.path),
         owner_name: escapeHTML(req.body.owner_name)
     }
-    pythonArgs = ['--cpu', '--net=zf', '--image=']
-    PythonRunner.run("python_scripts/PythonFacade.py", pythonArgs)
-    .then((data) => {
-        console.log("Print from controller...", data);
-        postParams.bboxes = JSON.parse(data[0]) || [0,0,0,0];
-        return PostService.create(postParams)
+    var pythonArgs = ['--cpu', '--net=zf', '--image=']
+    ImageService.isImage(req.files.image.path)
+    .then((isImage) => {
+        console.log(" >>>>> ", isImage);
+        return new Promise((resolve, reject) => {
+            if(!isImage){
+                res.status(400).send("No image");
+            } else {
+                resolve("python_scripts/PythonFacade.py", pythonArgs);
+            }
+        })
     })
+    .then(PythonRunner.run)
+    .then((data) => {
+        return new Promise((resolve, reject) => {
+            console.log("Print from controller...", data);
+            postParams.bboxes = JSON.parse(data[0]) || [0,0,0,0];
+            resolve(postParams);
+        })
+    })
+    .then(PostService.create)
     .then((postKey) => {
         console.log(postKey);
         return res.status(201).send();
     })
-    .catch((err) => {
+    .error((err) => {
         return res.status(500).send(err);
     })
 }
@@ -70,7 +93,7 @@ exports.comment = function(req, res){
     var commentText = escapeHTML(req.body.text);
     var postID = req.query.id;
     if(commentText.length > 255 || !postID) {
-        return res.status(400).send();
+        return res.status(400).send("Comment must be less than 255 characters.");
     }
     PostService.comment(postID, commentText)
     .then(() => {
