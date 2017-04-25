@@ -6,15 +6,36 @@ const datastore = require('@google-cloud/datastore')({
 const Promise = require("bluebird");
 const crypto = require("crypto");
 
-var getUID = function(){
+var getUID = function() {
     return crypto.randomBytes(16).toString("hex");
 }
 
-exports.create = function(params){
+var getPost = function(postID) {
+    console.log(postID)
+    const postKey = datastore.key([
+        'Post',
+        postID
+    ]);
+
+    return new Promise((resolve, reject) => {
+        datastore.get(postKey)
+        .then((results) => {
+            if(results.length){
+                resolve(results[0]);
+            } else {
+                reject("Not found.");
+            }
+        })
+        .catch(console.log)
+    })
+
+}
+
+exports.create = function(params) {
     console.log("Create Post..");
-    console.log("with params", params);
-    
-    let postKey = datastore.key('Post');
+
+    let postID = getUID();
+    let postKey = datastore.key(['Post', postID]);
     let caption = params.caption;
     let image = params.image_blob;
     let liked_count = 0;
@@ -27,19 +48,19 @@ exports.create = function(params){
         key: postKey,
         data: [
             {
-                name: "_id",
-                value: getUID()
+                name: "postID",
+                value: postID
             },
             {
                 name: "caption",
                 value: caption,
                 excludeFromIndexes: true
             },
-            {
-                name: "image_blob",
-                value: image,
-                excludeFromIndexes: true
-            },
+            // {
+            //     name: "image_blob",
+            //     value: image,
+            //     excludeFromIndexes: true
+            // },
             {
                 name: "liked_count",
                 value: liked_count,
@@ -77,8 +98,7 @@ exports.create = function(params){
         .then((data) => {
             console.log("saved", data);
             console.log(`Post ${postKey.id} created successfully.`);
-            resolve(postKey);
-            
+            resolve(postID)
         })
         .catch((err) => {
             console.log("=== my err ===");
@@ -87,7 +107,7 @@ exports.create = function(params){
     })
 }
 
-exports.list = function(page){
+exports.list = function(page) {
     console.log("List post...");
     console.log("page...", page);
 
@@ -107,4 +127,73 @@ exports.list = function(page){
             reject(err);
         });
     }) 
+}
+
+exports.like = function(postID) {
+    var postKey = datastore.key([
+        'Post',
+        postID
+    ]);
+
+    return new Promise((resolve, reject) => {
+        getPost(postID).then((post) => {
+            if(!post) return reject("Post not found");
+            post.liked_count++;
+            var entity = {
+                key: postKey,
+                data: post
+            }
+            datastore.update(entity)
+            .then(() => {
+                console.log("Post updated successfully.");
+                resolve();
+            })
+            .catch(() => {
+                reject();
+            });
+        })
+    });
+}
+
+exports.delete = function(postID) {
+    var postKey = datastore.key([
+        'Post',
+        postID
+    ]);
+
+    return new Promise((resolve, reject) => {
+        datastore.delete(postKey)
+        .then(() => {
+            resolve();
+        })
+        .catch(() => {
+            reject();
+        })
+    });
+}
+
+exports.comment = function(postID, text) {
+    var postKey = datastore.key([
+        'Post',
+        postID
+    ]);
+
+    return new Promise((resolve, reject) => {
+        getPost(postID).then((post) => {
+            if(!post) return reject("Post not found");
+            post.comments.push(text);
+            var entity = {
+                key: postKey,
+                data: post
+            }
+            datastore.update(entity)
+            .then(() => {
+                console.log("Post updated successfully.");
+                resolve();
+            })
+            .catch(() => {
+                reject();
+            });
+        })
+    });
 }

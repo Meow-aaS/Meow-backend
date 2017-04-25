@@ -15,6 +15,7 @@
     "ejs": "^2.5.6",
     "express": "^4.15.2",
     "jade": "~1.11.0",
+    "mmmagic": "^0.4.5",
     "morgan": "^1.8.1",
     "serve-favicon": "~2.4.2",
     "swagger": "^0.7.5"
