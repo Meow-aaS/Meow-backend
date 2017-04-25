@@ -44,24 +44,23 @@ exports.post = function(req, res){
             if(!isImage){
                 res.status(400).send("No image");
             } else {
-                resolve(req.files.image.path);
+                resolve(pythonArgs);
             }
+        })
+    })
+    .then(PythonRunner.run)
+    .then(() => {
+        return new Promise((resolve, reject) => {
+            resolve(req.files.image.path)
         })
     })
     .then(ImageService.upload)
     .then((image_url) => {
+        fs.unlink(req.files.image.path);
         return new Promise((resolve, reject) => {
             postParams.image_url = image_url;
             pythonArgs[3] = `--image=${req.files.image.path}`;
             resolve(pythonArgs);
-        })
-    })
-    .then(PythonRunner.run)
-    .then((data) => {
-        return new Promise((resolve, reject) => {
-            console.log("Print from controller...", data);
-            postParams.bboxes = JSON.parse(data[0]) || [0,0,0,0];
-            resolve(postParams);
         })
     })
     .then(PostService.create)
