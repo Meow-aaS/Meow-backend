@@ -52,6 +52,7 @@ exports.post = function(req, res){
     .then((image_url) => {
         return new Promise((resolve, reject) => {
             postParams.image_url = image_url;
+            pythonArgs[2] = `--image=${req.files.image.path}`;
             resolve("python_scripts/PythonFacade.py", pythonArgs);
         })
     })
