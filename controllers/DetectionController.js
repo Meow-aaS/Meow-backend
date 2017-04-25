@@ -36,7 +36,7 @@ exports.post = function(req, res){
         caption: escapeHTML(req.body.caption),
         owner_name: escapeHTML(req.body.owner_name)
     }
-    var pythonArgs = ['--cpu', '--net=zf', '--image=']
+    var pythonArgs = ['python_scripts/PythonFacade.py', '--cpu', '--net=zf', '--image=']
     ImageService.isImage(req.files.image.path)
     .then((isImage) => {
         console.log(" >>>>> ", isImage);
@@ -52,8 +52,8 @@ exports.post = function(req, res){
     .then((image_url) => {
         return new Promise((resolve, reject) => {
             postParams.image_url = image_url;
-            pythonArgs[2] = `--image=${req.files.image.path}`;
-            resolve("python_scripts/PythonFacade.py", pythonArgs);
+            pythonArgs[3] = `--image=${req.files.image.path}`;
+            resolve(pythonArgs);
         })
     })
     .then(PythonRunner.run)
