@@ -68,6 +68,8 @@ exports.post = function(req, res){
 }
 
 exports.delete = function(req, res){
+    if(req.body.password != "123123123") return res.status(400).send();
+    
     PostService.delete(req.query.id)
     .then(() => {
         return res.status(200).send();
